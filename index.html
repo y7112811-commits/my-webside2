@@ -7,90 +7,73 @@
 <title>y@$h | Secure  Chatingfly Platform</title>
 
 <meta name="description" content="y@$h is a modern secure private chat platform. Connect instantly and enjoy fast, safe messaging worldwide.">
-<meta name="keywords" content="private chat, secure messaging, online chat, instant messaging, safe chat platform">
-<meta name="author" content="y@$h">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://yourdomain.netlify.app/">
 
-<!-- Monetag Verification -->
 <meta name="monetag" content="b5c5e6b7357234c75f175f69c16949ff">
-
-<!-- Open Graph -->
-<meta property="og:title" content="y@$h – Secure Private Chat Platform">
-<meta property="og:description" content="Connect instantly with secure and fast private messaging.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://yourdomain.netlify.app/">
-<meta property="og:image" content="https://yourdomain.netlify.app/preview.jpg">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="y@$h – Secure Private Chat">
-<meta name="twitter:description" content="Fast and secure private messaging platform.">
-<meta name="twitter:image" content="https://yourdomain.netlify.app/preview.jpg">
-
-<!-- Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "y@$h",
-  "url": "https://yourdomain.netlify.app/",
-  "description": "Secure and modern private chat platform for instant communication."
-}
-</script>
 
 <style>
 body{
   margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   font-family:'Segoe UI', sans-serif;
-  text-align:center;
   background:#050a1f;
   color:#00eaff;
   overflow:hidden;
 }
 
-body::before{
-  content:"";
-  position:absolute;
-  width:400px;
-  height:400px;
-  background:radial-gradient(circle, #00eaff 0%, transparent 70%);
-  filter:blur(120px);
-  animation:moveGlow 6s infinite alternate;
+/* Flash Screen */
+#splash{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:#050a1f;
+  z-index:9999;
 }
 
-@keyframes moveGlow{
-  from{transform:translate(-100px,-100px);}
-  to{transform:translate(100px,100px);}
+.bigLogo{
+  font-size:60px;
+  font-weight:bold;
+  letter-spacing:5px;
+  animation:glow 1.5s infinite alternate;
+}
+
+@keyframes glow{
+  from{ text-shadow:0 0 10px #00eaff;}
+  to{ text-shadow:0 0 30px #00eaff, 0 0 50px #00eaff;}
+}
+
+.countdown{
+  font-size:40px;
+  margin-top:20px;
+}
+
+.text{
+  margin-top:10px;
+  font-size:18px;
+  opacity:0.8;
+}
+
+/* Main Content Hidden Initially */
+#main{
+  display:none;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .container{
-  position:relative;
   backdrop-filter: blur(10px);
   background: rgba(0,20,40,0.6);
   padding:40px;
   border-radius:20px;
   width:320px;
+  text-align:center;
   box-shadow:0 0 25px #00eaff;
   border:1px solid #00eaff;
-}
-
-.logo{
-  font-size:50px;
-  font-weight:bold;
-  letter-spacing:3px;
-  margin-bottom:10px;
-  text-shadow:0 0 10px #00eaff, 0 0 20px #00eaff;
-}
-
-.tagline{
-  opacity:0.8;
-  font-size:14px;
-  margin-bottom:25px;
 }
 
 button{
@@ -103,30 +86,46 @@ button{
   background:#00eaff;
   color:#050a1f;
   cursor:pointer;
-  transition:0.3s;
-  box-shadow:0 0 15px #00eaff;
-}
-
-button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 25px #00eaff;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
-  <div class="logo">y@$h</div>
-  <div class="tagline">Secure • Private • Instant Chat</div>
-
-  <button onclick="window.location.href='https://sites.google.com/view/webchat-yash/home'">
-    Enter Chat
-  </button>
+<!-- Splash Screen -->
+<div id="splash">
+  <div class="bigLogo">y@$h</div>
+  <div class="text">Enjoy Chatting</div>
+  <div class="countdown" id="timer">15</div>
 </div>
 
-<!-- Monetag Ad Script -->
+<!-- Main Content -->
+<div id="main">
+  <div class="container">
+    <h2>Welcome to y@$h</h2>
+    <button onclick="window.location.href='https://sites.google.com/view/webchat-yash/home'">
+      Enter Chat
+    </button>
+  </div>
+</div>
+
+<!-- Countdown Script -->
+<script>
+let time = 15;
+let timer = document.getElementById("timer");
+
+let countdown = setInterval(function(){
+  time--;
+  timer.textContent = time;
+  
+  if(time <= 0){
+    clearInterval(countdown);
+    window.location.href = "https://sites.google.com/view/webchat-yash/home";
+  }
+},1000);
+</script>
+
+<!-- Monetag Script -->
 <script src="https://quge5.com/88/tag.min.js"
         data-zone="212551"
         async
