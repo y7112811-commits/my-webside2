@@ -4,21 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Privexa – Secure Private Chat Platform</title>
+<title>y@$h – Private Chat Platform</title>
 
-<meta name="description" content="Privexa is a secure private chat platform for fast and safe conversations. Connect instantly without phone number and enjoy modern private messaging.">
-
-<meta name="keywords" content="private chat, secure chat, anonymous chat, Privexa messaging, online chat platform">
-
+<meta name="description" content="y@$h is a secure privexa chat platform for fast and safe conversations.">
 <meta name="robots" content="index, follow">
 
 <!-- Monetag Verification -->
 <meta name="monetag" content="c436b5563f598313457b66e76d799638">
-
-<!-- Monetag Ad Script (ADDED HERE) -->
-<script src="https://5gvci.com/act/files/tag.min.js?z=10628046"
-        data-cfasync="false"
-        async></script>
 
 <style>
 body{
@@ -27,50 +19,90 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:#0f172a;
-  color:#ffffff;
-  font-family:Arial, sans-serif;
+  font-family:'Segoe UI', sans-serif;
   text-align:center;
+  background:#050a1f;
+  color:#00eaff;
+  overflow:hidden;
 }
 
-.splash{
-  animation: fade 1.5s ease-in-out;
+/* Neon glow background effect */
+body::before{
+  content:"";
+  position:absolute;
+  width:400px;
+  height:400px;
+  background:radial-gradient(circle, #00eaff 0%, transparent 70%);
+  filter:blur(120px);
+  animation:moveGlow 6s infinite alternate;
 }
 
-.splash h1{
-  font-size:48px;
-  letter-spacing:4px;
+@keyframes moveGlow{
+  from{transform:translate(-100px,-100px);}
+  to{transform:translate(100px,100px);}
 }
 
-@keyframes fade{
-  from{opacity:0}
-  to{opacity:1}
+.container{
+  position:relative;
+  backdrop-filter: blur(10px);
+  background: rgba(0,20,40,0.6);
+  padding:40px;
+  border-radius:20px;
+  width:320px;
+  box-shadow:0 0 25px #00eaff;
+  border:1px solid #00eaff;
+}
+
+.logo{
+  font-size:50px;
+  font-weight:bold;
+  letter-spacing:3px;
+  margin-bottom:10px;
+  text-shadow:0 0 10px #00eaff, 0 0 20px #00eaff;
+}
+
+.tagline{
+  opacity:0.8;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:bold;
+  background:#00eaff;
+  color:#050a1f;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 0 15px #00eaff;
+}
+
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px #00eaff;
 }
 </style>
 
-<script>
-  setTimeout(function(){
-    window.location.replace("https://sites.google.com/view/webchat-yash/home");
-  }, 3000);
-</script>
+<!-- Monetag Ad Script -->
+<script src="https://5gvci.com/act/files/tag.min.js?z=10628046"
+        data-cfasync="false"
+        async></script>
 
 </head>
 
 <body>
 
-<div class="splash">
-  <h1>y@$h</h1>
-  <p>Loading Secure Chat...</p>
-</div>
+<div class="container">
+  <div class="logo">y@$h</div>
+  <div class="tagline">Secure • Private • Instant Chat</div>
 
-<!-- SEO Content -->
-<div style="position:absolute; bottom:-9999px;">
-  <h2>Privexa Secure Messaging Platform</h2>
-  <p>
-    Privexa is a modern private chat platform designed for secure and fast communication.
-    Users can connect instantly without phone number registration.
-    Built with privacy-first technology, Privexa delivers smooth and reliable messaging worldwide.
-  </p>
+  <button onclick="window.location.href='https://sites.google.com/view/webchat-yash/home'">
+    Enter Chat
+  </button>
 </div>
 
 </body>
