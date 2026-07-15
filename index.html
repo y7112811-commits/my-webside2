@@ -1,139 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatingFly by y@$h</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ✅ SEO & Verification Tags -->
+    <meta name="description" content="y@$h is a modern secure private chat platform. Connect instantly and enjoy fast, safe messaging worldwide.">
+    <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="mV_h-5qmy0iRmEXqIIbiWXjZdqP9OBab4vvnjRcYXCM" />
+    <meta name="monetag" content="b5c5e6b7357234c75f175f69c16949ff">
 
-<title>y@$h | Secure Chatingfly Platform</title>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <style>
+        /* Liquid Animated Background */
+        @keyframes liquidBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-<meta name="description" content="y@$h is a modern secure private chat platform. Connect instantly and enjoy fast, safe messaging worldwide.">
-<meta name="robots" content="index, follow">
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(-45deg, #1a0014, #2a0845, #140024, #3d002e);
+            background-size: 400% 400%;
+            animation: liquidBg 12s ease infinite;
+            color: #fff; 
+            padding: 20px; 
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-<!-- ✅ Google Search Console Verification -->
-<meta name="google-site-verification" content="mV_h-5qmy0iRmEXqIIbiWXjZdqP9OBab4vvnjRcYXCM" />
+        /* Glassmorphism Container */
+        .glass-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(40, 10, 40, 0.35);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
 
-<!-- Monetag Verification -->
-<meta name="monetag" content="b5c5e6b7357234c75f175f69c16949ff">
+        /* Branding Header */
+        h2 {
+            margin: 0 0 5px 0;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff4081, #f8bbd0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 15px rgba(255, 64, 129, 0.3);
+        }
 
-<style>
-body{
-  margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background:#050a1f;
-  color:#00eaff;
-  overflow:hidden;
-}
+        .branding {
+            display: block;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #f48fb1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
 
-/* Flash Screen */
-#splash{
-  position:fixed;
-  width:100%;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  background:#050a1f;
-  z-index:9999;
-}
+        /* Shared Inputs & Buttons */
+        label {
+            font-size: 13px;
+            color: #f8bbd0;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 600;
+        }
 
-.bigLogo{
-  font-size:60px;
-  font-weight:bold;
-  letter-spacing:5px;
-  animation:glow 1.5s infinite alternate;
-}
+        input[type="text"] { 
+            padding: 14px; 
+            width: 100%; 
+            box-sizing: border-box; 
+            border-radius: 12px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.3); 
+            color: #fff; 
+            font-size: 15px;
+        }
 
-@keyframes glow{
-  from{ text-shadow:0 0 10px #00eaff;}
-  to{ text-shadow:0 0 30px #00eaff, 0 0 50px #00eaff;}
-}
+        input[type="text"]:focus {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: #ff4081;
+            box-shadow: 0 0 15px rgba(255, 64, 129, 0.4);
+        }
 
-.countdown{
-  font-size:40px;
-  margin-top:20px;
-}
+        .primary-btn { 
+            padding: 14px;
+            width: 100%;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #d81b60, #ff4081); 
+            color: white; 
+            font-weight: bold; 
+            font-size: 15px;
+            cursor: pointer; 
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
 
-.text{
-  margin-top:10px;
-  font-size:18px;
-  opacity:0.8;
-}
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 64, 129, 0.6);
+        }
 
-#main{
-  display:none;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+        /* Action Bar (Call Button) */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-.container{
-  backdrop-filter: blur(10px);
-  background: rgba(0,20,40,0.6);
-  padding:40px;
-  border-radius:20px;
-  width:320px;
-  text-align:center;
-  box-shadow:0 0 25px #00eaff;
-  border:1px solid #00eaff;
-}
+        .call-btn {
+            background: rgba(216, 27, 96, 0.2);
+            border: 1px solid rgba(255, 64, 129, 0.4);
+            color: #f8bbd0;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .call-btn:hover {
+            background: rgba(216, 27, 96, 0.5);
+        }
 
-button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  font-size:16px;
-  font-weight:bold;
-  background:#00eaff;
-  color:#050a1f;
-  cursor:pointer;
-}
-</style>
+        /* Video Section */
+        #video-section {
+            display: none;
+            gap: 10px;
+            margin-bottom: 15px;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 64, 129, 0.2);
+        }
 
+        video {
+            width: 48%;
+            border-radius: 8px;
+            background: #000;
+            border: 1px solid rgba(255, 64, 129, 0.3);
+        }
+
+        /* Chat Box & Watermark */
+        #chat-box { 
+            height: 300px; 
+            overflow-y: auto; 
+            background: rgba(0, 0, 0, 0.2); 
+            padding: 15px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        #chat-box::-webkit-scrollbar { width: 6px; }
+        #chat-box::-webkit-scrollbar-track { background: transparent; }
+        #chat-box::-webkit-scrollbar-thumb { background: #d81b60; border-radius: 10px; }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+            white-space: nowrap;
+            user-select: none;
+            z-index: 0;
+        }
+
+        /* Messages */
+        .msg { 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            background: rgba(216, 27, 96, 0.5); 
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            z-index: 1;
+            line-height: 1.4;
+            max-width: 85%;
+            word-wrap: break-word;
+        }
+        
+        .msg-you {
+            align-self: flex-end;
+            background: rgba(255, 64, 129, 0.4);
+            border-bottom-right-radius: 2px;
+        }
+
+        .msg-friend {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom-left-radius: 2px;
+        }
+
+        .msg img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+
+        .msg a {
+            color: #f8bbd0;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .system { 
+            color: #f48fb1; 
+            font-size: 11px; 
+            text-align: center; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px 0;
+            z-index: 1;
+        }
+
+        /* Modern Chat Controls */
+        .chat-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: rgba(216, 27, 96, 0.3);
+            border: 1px solid rgba(255, 64, 129, 0.4);
+            color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 64, 129, 0.6);
+            transform: scale(1.05);
+        }
+
+        .icon-btn.send {
+            background: linear-gradient(135deg, #d81b60, #ff4081);
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            margin: 20px 0;
+        }
+
+        /* Ads Container */
+        .ads-container {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            min-height: 50px; /* Reserves space so UI doesn't jump */
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- Splash Screen -->
-<div id="splash">
-  <div class="bigLogo">y@$h</div>
-  <div class="text">Enjoy Chatting</div>
-  <div class="countdown" id="timer">15</div>
-</div>
+    <div class="glass-container">
+        <h2>ChatingFly</h2>
+        <span class="branding">by y@$h</span>
 
-<!-- Main Content -->
-<div id="main">
-  <div class="container">
-    <h2>Welcome to y@$h</h2>
-    <button onclick="window.location.href='https://sites.google.com/view/webchat-yash/home'">
-      Enter Chat
-    </button>
-  </div>
-</div>
+        <div id="setup">
+            <label>1. Create Your ID (Any word or number):</label>
+            <input type="text" id="my-id" placeholder="e.g., yash123">
+            <button class="primary-btn" onclick="startMyServer()">Start My Node</button>
+        </div>
 
-<script>
-let time = 15;
-let timer = document.getElementById("timer");
+        <div id="connect-section" style="display:none;">
+            <div class="divider"></div>
+            <label>2. Connect to a Friend's ID:</label>
+            <input type="text" id="friend-id" placeholder="Enter their exact ID">
+            <button class="primary-btn" onclick="connectToFriend()">Connect</button>
+        </div>
 
-let countdown = setInterval(function(){
-  time--;
-  timer.textContent = time;
-  
-  if(time <= 0){
-    clearInterval(countdown);
-    window.location.href = "chatingfly-x.netlify.app";
-  }
-},1000);
-</script>
+        <div id="chat-section" style="display:none;">
+            <div class="divider"></div>
+            
+            <div class="action-bar">
+                <label style="margin:0;">Chat Active</label>
+                <button class="call-btn" onclick="startVideoCall()">📹 Video Call</button>
+            </div>
 
-<!-- Monetag Script -->
-<script src="https://quge5.com/88/tag.min.js"
-        data-zone="212551"
-        async
-        data-cfasync="false"></script>
+            <!-- Video Interface -->
+            <div id="video-section">
+                <video id="local-video" autoplay muted playsinline></video>
+                <video id="remote-video" autoplay playsinline></video>
+            </div>
 
+            <div id="chat-box">
+                <div class="watermark">by y@$h</div>
+                <!-- Messages will appear here -->
+            </div>
+            
+            <!-- Modern Chat Input Row -->
+            <div class="chat-controls">
+                <button class="icon-btn" title="Send File" onclick="document.getElementById('file-input').click()">📎</button>
+                <input type="file" id="file-input" style="display:none" onchange="sendFile(this)">
+                
+                <input type="text" id="msg-input" placeholder="Message..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                
+                <button class="icon-btn send" title="Send Message" onclick="sendMessage()">➤</button>
+            </div>
+        </div>
+
+        <!-- ✅ Ads Section Block -->
+        <div class="ads-container">
+            <script src="https://quge5.com/88/tag.min.js" data-zone="212551" async data-cfasync="false"></script>
+        </div>
+
+    </div>
+
+    <script>
+        let peer = null;
+        let activeConnection = null;
+        let localStream = null;
+        let currentCall = null;
+
+        // 1. Initialize your node
+        function startMyServer() {
+            const myId = document.getElementById('my-id').value.trim();
+            if (!myId) return alert("Enter an ID first!");
+
+            peer = new Peer(myId, { debug: 2 }); 
+
+            peer.on('open', (id) => {
+                logSystem(`You are online as "${id}"`);
+                document.getElementById('setup').style.display = 'none';
+                document.getElementById('connect-section').style.display = 'block';
+                document.getElementById('chat-section').style.display = 'block';
+            });
+
+            // Listen for data connection
+            peer.on('connection', (conn) => {
+                activeConnection = conn;
+                setupConnection(conn);
+            });
+
+            // Listen for video calls
+            peer.on('call', async (call) => {
+                const accept = confirm("Incoming video call! Accept?");
+                if (accept) {
+                    try {
+                        localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+                        document.getElementById('local-video').srcObject = localStream;
+                        document.getElementById('video-section').style.display = 'flex';
+                        call.answer(localStream);
+                        handleCall(call);
+                    } catch (err) {
+                        alert("Camera/Microphone access denied.");
+                    }
+                } else {
+                    call.close();
+                }
+            });
+
+            peer.on('error', (err) => {
+                alert("Error: " + err.type + " - Try a different ID.");
+            });
+        }
+
+        // 2. Connect to someone else
+        function connectToFriend() {
+            const friendId = document.getElementById('friend-id').value.trim();
+            if (!friendId) return alert("Enter a friend's ID!");
+
+            logSystem(`Attempting to connect to ${friendId}...`);
+            activeConnection = peer.connect(friendId, { reliable: true });
+            setupConnection(activeConnection);
+        }
+
+        // 3. Handle data passing back and forth
+        function setupConnection(conn) {
+            conn.on('open', () => {
+                logSystem(`Connected securely to ${conn.peer}!`);
+            });
+
+            conn.on('data', (data) => {
+                if (data.type === 'text') {
+                    renderMessage(data.content, 'friend');
+                } else if (data.type === 'file') {
+                    renderFileMessage(data.filename, data.filetype, data.filedata, 'friend');
+                }
+            });
+
+            conn.on('close', () => {
+                logSystem(`Connection closed.`);
+                activeConnection = null;
+            });
+        }
+
+        // 4. Send Text Message
+        function sendMessage() {
+            const input = document.getElementById('msg-input');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            if (!activeConnection || !activeConnection.open) return alert("Connect to a friend first.");
+
+            activeConnection.send({ type: 'text', content: text });
+            renderMessage(text, 'you');
+            input.value = '';
+        }
+
+        // 5. Send File Message
+        function sendFile(inputBox) {
+            const file = inputBox.files[0];
+            if (!file) return;
+            if (!activeConnection || !activeConnection.open) return alert("Connect to a friend first.");
+
+            if (file.size > 5 * 1024 * 1024) {
+                return alert("File is too large. Please send files smaller than 5MB.");
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const base64Data = e.target.result;
+                activeConnection.send({
+                    type: 'file',
+                    filename: file.name,
+                    filetype: file.type,
+                    filedata: base64Data
+                });
+                renderFileMessage(file.name, file.type, base64Data, 'you');
+            };
+            reader.readAsDataURL(file);
+            inputBox.value = ''; // Reset input
+        }
+
+        // 6. Video Call Logic
+        async function startVideoCall() {
+            if (!activeConnection || !activeConnection.open) return alert("Connect to a friend first.");
+            
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+                document.getElementById('local-video').srcObject = localStream;
+                document.getElementById('video-section').style.display = 'flex';
+                
+                logSystem(`Ringing ${activeConnection.peer}...`);
+                const call = peer.call(activeConnection.peer, localStream);
+                handleCall(call);
+            } catch (err) {
+                alert("Camera/Microphone access denied.");
+            }
+        }
+
+        function handleCall(call) {
+            currentCall = call;
+            call.on('stream', (remoteStream) => {
+                document.getElementById('remote-video').srcObject = remoteStream;
+                logSystem("Video call connected.");
+            });
+            call.on('close', () => {
+                document.getElementById('video-section').style.display = 'none';
+                if (localStream) localStream.getTracks().forEach(track => track.stop());
+                logSystem("Video call ended.");
+            });
+        }
+
+        // 7. UI Rendering Helpers
+        function logSystem(text) {
+            const box = document.getElementById('chat-box');
+            const div = document.createElement('div');
+            div.className = 'system';
+            div.textContent = `[ ${text} ]`;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function renderMessage(text, sender) {
+            const box = document.getElementById('chat-box');
+            const div = document.createElement('div');
+            div.className = `msg ${sender === 'you' ? 'msg-you' : 'msg-friend'}`;
+            div.textContent = text;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function renderFileMessage(filename, filetype, dataUrl, sender) {
+            const box = document.getElementById('chat-box');
+            const div = document.createElement('div');
+            div.className = `msg ${sender === 'you' ? 'msg-you' : 'msg-friend'}`;
+            
+            let contentHTML = `<strong>📁 ${filename}</strong><br>`;
+            
+            if (filetype.startsWith('image/')) {
+                contentHTML += `<img src="${dataUrl}" alt="image"><br>`;
+            }
+            
+            contentHTML += `<a href="${dataUrl}" download="${filename}">Download</a>`;
+            div.innerHTML = contentHTML;
+            
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+    </script>
 </body>
 </html>
