@@ -6,11 +6,7 @@
     <title>ChatingFly | Premium Secure Chat</title>
 
     <!-- SEO & Verification Tags -->
-    <meta name="description" content="y@$h is a modern secure private chat platform ChatingFly – Browser-Based P2P Chat by y@$h
-
-Welcome to ChatingFly, a modern browser-based communication platform created by y@$h. ChatingFly is designed to make it easy to connect with friends directly through your web browser. The current version supports real-time one-to-one messaging, video calling, and file sharing using WebRTC technology with PeerJS for connection setup. After a connection is established, communication takes place directly between the connected browsers. ChatingFly features a modern glassmorphism interface, responsive design for mobile and desktop devices, and a simple Peer ID system that lets users connect without installing a separate application.
-
-Whether you want to chat with friends, share photos or documents, exchange small files, or make a browser-based video call, ChatingFly aims to provide a clean and lightweight experience. Built with HTML, CSS, JavaScript, WebRTC, and PeerJS, the project focuses on fast browser communication and an easy-to-use interface. ChatingFly continues to evolve with new ideas and future plans such as group chat, improved peer networking, enhanced security, better file sharing, and additional communication features. Developed with a passion for modern web technology, ChatingFly by y@$h is a project dedicated to exploring fast, direct, and user-friendly browser communication. .">
+    <meta name="description" content="y@$h is a modern secure private chat platform.">
     <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="mV_h-5qmy0iRmEXqIIbiWXjZdqP9OBab4vvnjRcYXCM" />
 
@@ -45,20 +41,24 @@ Whether you want to chat with friends, share photos or documents, exchange small
             position: relative;
         }
 
-        /* --- THE WATERMARK --- */
-        .watermark {
+        /* --- CORNER WATERMARKS (Responsive) --- */
+        .watermark-corner {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-35deg);
-            font-size: 18vw;
             font-weight: 900;
-            color: rgba(255, 64, 129, 0.04); 
-            pointer-events: none; 
-            z-index: -1; 
+            color: rgba(255, 64, 129, 0.15); /* Slightly visible pink */
+            pointer-events: none; /* Prevents blocking clicks */
+            z-index: -1; /* Keeps behind everything */
             user-select: none;
             white-space: nowrap;
+            letter-spacing: 2px;
+            /* Auto-adjusts: min 12px, scales with screen width, max 22px */
+            font-size: clamp(12px, 2.5vw, 22px); 
         }
+
+        .wm-tl { top: 15px; left: 15px; }
+        .wm-tr { top: 15px; right: 15px; }
+        .wm-bl { bottom: 15px; left: 15px; }
+        .wm-br { bottom: 15px; right: 15px; }
 
         /* Glassmorphism Container */
         .glass-container {
@@ -405,8 +405,11 @@ Whether you want to chat with friends, share photos or documents, exchange small
 </head>
 <body>
 
-    <!-- Universal Background Watermark -->
-    <div class="watermark">y@$h</div>
+    <!-- Responsive Corner Watermarks -->
+    <div class="watermark-corner wm-tl">y@$h</div>
+    <div class="watermark-corner wm-tr">y@$h</div>
+    <div class="watermark-corner wm-bl">y@$h</div>
+    <div class="watermark-corner wm-br">y@$h</div>
 
     <div class="glass-container">
         <h2>ChatingFly ✨</h2>
