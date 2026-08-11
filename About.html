@@ -1,0 +1,379 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>About ChatingFly — by y@$h</title>
+<meta name="description" content="Learn about ChatingFly, a browser-based communication project by y@$h featuring peer-to-peer messaging, file sharing and video calls.">
+<meta name="robots" content="index, follow"><style>
+* {
+    box-sizing: border-box;
+}
+
+@keyframes liquidBg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    background: linear-gradient(-45deg, #1a0014, #2a0845, #140024, #3d002e);
+    background-size: 400% 400%;
+    animation: liquidBg 12s ease infinite;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(40, 10, 40, 0.42);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 22px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.5);
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #f8bbd0;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.back:hover {
+    color: #ff80ab;
+}
+
+header {
+    text-align: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.logo {
+    font-size: 38px;
+    font-weight: 900;
+    background: linear-gradient(to right, #ff4081, #f8bbd0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.branding {
+    display: block;
+    margin-top: 5px;
+    color: #f48fb1;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.tagline {
+    max-width: 650px;
+    margin: 15px auto 0;
+    color: #d9c5d1;
+    line-height: 1.7;
+}
+
+h2 {
+    margin-top: 35px;
+    color: #ff80ab;
+    font-size: 22px;
+}
+
+h3 {
+    color: #f8bbd0;
+    margin-top: 0;
+}
+
+p, li {
+    color: #ddd0d8;
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+ul {
+    padding-left: 22px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.feature {
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(0,0,0,.20);
+    border: 1px solid rgba(255,255,255,.08);
+    transition: .3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,64,129,.35);
+    background: rgba(216,27,96,.15);
+}
+
+.icon {
+    font-size: 27px;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    margin-bottom: 0;
+    color: #bcaab4;
+}
+
+.card {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(0,0,0,.18);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.highlight {
+    border-left: 3px solid #ff4081;
+}
+
+a {
+    color: #ff9fbe;
+}
+
+.footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    text-align: center;
+    color: #a9939f;
+    font-size: 12px;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    margin: 0 7px;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .logo {
+        font-size: 30px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style></head><body><div class="container"><a href="index.html" class="back">← Back to ChatingFly</a>
+
+<header>
+    <div class="logo">ChatingFly</div>
+    <span class="branding">by y@$h</span>
+
+    <p class="tagline">
+        A browser-based communication project focused on simple,
+        direct and modern communication using web technologies.
+    </p>
+</header>
+
+
+<h2>What is ChatingFly?</h2>
+
+<p>
+    ChatingFly is a web-based communication project created by
+    <strong>y@$h</strong>. The project explores how modern browser
+    technologies can be used to create communication experiences without
+    requiring a traditional chat application installation.
+</p>
+
+<p>
+    Depending on the version and features available, ChatingFly can
+    provide peer-to-peer messaging, file sharing and browser-based video
+    communication.
+</p>
+
+
+<h2>Our Main Features</h2>
+
+<div class="feature-grid">
+
+    <div class="feature">
+        <div class="icon">💬</div>
+        <h3>P2P Messaging</h3>
+        <p>
+            Send messages between connected browsers using WebRTC-based
+            peer communication.
+        </p>
+    </div>
+
+    <div class="feature">
+        <div class="icon">📁</div>
+        <h3>File Sharing</h3>
+        <p>
+            Share supported files directly between connected users,
+            subject to the limits of the current version.
+        </p>
+    </div>
+
+    <div class="feature">
+        <div class="icon">📹</div>
+        <h3>Video Calls</h3>
+        <p>
+            Use browser camera and microphone capabilities for
+            peer-to-peer video communication.
+        </p>
+    </div>
+
+    <div class="feature">
+        <div class="icon">🌐</div>
+        <h3>Browser Based</h3>
+        <p>
+            ChatingFly is designed to work through a modern web browser
+            without requiring a dedicated desktop application.
+        </p>
+    </div>
+
+</div>
+
+
+<h2>How ChatingFly Works</h2>
+
+<div class="card highlight">
+
+    <p>
+        ChatingFly can use <strong>WebRTC</strong> for direct browser
+        communication and <strong>PeerJS</strong> as part of its
+        connection and signaling architecture.
+    </p>
+
+    <p>
+        A signaling service can help two browsers discover and establish
+        a connection. Once a peer connection is established, supported
+        communication can occur between the browsers.
+    </p>
+
+    <p>
+        The exact network path and technical behavior can depend on
+        browser support, WebRTC configuration, NAT traversal and network
+        conditions.
+    </p>
+
+</div>
+
+
+<h2>Built as an Independent Project</h2>
+
+<p>
+    ChatingFly is an independent web project created and developed under
+    the <strong>y@$h</strong> brand.
+</p>
+
+<p>
+    The project is intended to experiment with web development,
+    peer-to-peer communication, user interface design and browser
+    technologies.
+</p>
+
+
+<h2>Our Approach</h2>
+
+<ul>
+    <li>Keep the interface simple and easy to understand.</li>
+    <li>Explore direct browser-to-browser communication.</li>
+    <li>Build useful features with standard web technologies.</li>
+    <li>Improve the project through testing and user feedback.</li>
+    <li>Be transparent about how the service and its features work.</li>
+</ul>
+
+
+<h2>Privacy & Safety</h2>
+
+<p>
+    ChatingFly is designed with privacy and responsible communication
+    in mind. However, users should understand that browser-based
+    communication does not automatically guarantee complete anonymity,
+    security or privacy.
+</p>
+
+<p>
+    Do not share passwords, financial information, authentication codes
+    or other sensitive information through chat or file sharing.
+</p>
+
+<p>
+    For more information, read our
+    <a href="privacy.html">Privacy Policy</a>
+    and
+    <a href="safety.html">Safety Guidelines</a>.
+</p>
+
+
+<h2>Important Information</h2>
+
+<div class="card">
+
+    <p>
+        ChatingFly may depend on third-party technologies, browser APIs,
+        hosting services, signaling infrastructure and network services.
+    </p>
+
+    <p>
+        Features may change as the project develops. Availability can
+        also depend on the user's browser, device, permissions and
+        network connection.
+    </p>
+
+</div>
+
+
+<h2>Contact ChatingFly</h2>
+
+<p>
+    Have a question, suggestion, bug report or safety concern?
+</p>
+
+<div class="card">
+    <strong>ChatingFly Support</strong><br><br>
+
+    Email:
+    <a href="mailto:chatingfly@gmail.com">
+        chatingfly@gmail.com
+    </a>
+</div>
+
+
+<div class="footer">
+
+    © 2026 ChatingFly by y@$h
+
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="safety.html">Safety</a>
+        <a href="about.html">About</a>
+    </div>
+
+</div>
+
+</div></body>
+</html>
