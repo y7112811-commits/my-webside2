@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatingFly | Premium Secure Chat</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1mtjKVvd3VSee9FbZF5llL53azLBa4oh3">
+
     <!-- SEO & Verification Tags -->
     <meta name="description" content="y@$h is a modern secure private chat platform.">
     <meta name="robots" content="index, follow">
@@ -45,13 +48,12 @@
         .watermark-corner {
             position: fixed;
             font-weight: 900;
-            color: rgba(255, 64, 129, 0.15); /* Slightly visible pink */
-            pointer-events: none; /* Prevents blocking clicks */
-            z-index: -1; /* Keeps behind everything */
+            color: rgba(255, 64, 129, 0.15);
+            pointer-events: none;
+            z-index: -1;
             user-select: none;
             white-space: nowrap;
             letter-spacing: 2px;
-            /* Auto-adjusts: min 12px, scales with screen width, max 22px */
             font-size: clamp(12px, 2.5vw, 22px); 
         }
 
@@ -73,7 +75,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 64, 129, 0.05);
             position: relative;
             z-index: 1;
-            margin-bottom: 50px; /* Space for the footer */
+            margin-bottom: 50px;
         }
 
         /* Headers & Inputs */
@@ -134,6 +136,11 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
         }
 
         .avatar {
@@ -356,13 +363,13 @@
             width: 100vw;
             height: 100vh;
             background: #000;
-            z-index: 2000; /* Stays on top of everything */
+            z-index: 2000;
         }
         
         #remote-video { 
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Fill the whole screen */
+            object-fit: cover;
         }
 
         #local-video { 
@@ -420,7 +427,7 @@
         }
 
         .footer-links a {
-            color: #94A3B8; /* Muted text color */
+            color: #94A3B8;
             text-decoration: none;
             font-size: 13px;
             transition: color 0.2s;
@@ -428,7 +435,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--accent); /* Lights up blue on hover */
+            color: var(--accent);
         }
         
         .footer-links a:not(:last-child)::after {
@@ -471,7 +478,10 @@
                         <div class="conn-quality" id="signal-quality">📊 Signal: Good</div>
                     </div>
                 </div>
-                <button class="icon-btn" onclick="startVideoCall()" title="Video Call">📞</button>
+                <div class="header-actions">
+                    <button class="icon-btn" onclick="startVoiceCall()" title="Voice Call">🎤</button>
+                    <button class="icon-btn" onclick="startVideoCall()" title="Video Call">📞</button>
+                </div>
             </div>
 
             <div id="chat-box"></div>
@@ -496,13 +506,13 @@
     <footer>
         <div class="footer-links">
             <a href="https://chatingfly.netlify.app/about.html" target="_blank" rel="noopener noreferrer">About</a>
-            <a href="https://drive.google.com/file/d/1XY389gHH1_DwgHUIw3Smh8Ssvy51WBlf/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: bold;">📱 Download APK</a>
+            <a href="https://chatingfly.netlify.app/apk.html" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: bold;">APK Download</a>
             <a href="https://chatingfly.netlify.app/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
             <a href="https://chatingfly.netlify.app/safety.html" target="_blank" rel="noopener noreferrer">Safety & Community Guidelines</a>
         </div>
     </footer>
 
-    <!-- Fullscreen Video Section (WhatsApp Style) -->
+    <!-- Fullscreen Video Section -->
     <div id="video-section">
         <video id="remote-video" autoplay playsinline></video>
         <video id="local-video" autoplay muted playsinline></video>
@@ -512,7 +522,7 @@
     <!-- Incoming Call Modal -->
     <div class="overlay" id="call-modal">
         <div class="call-modal">
-            <h3>📞 Incoming Call...</h3>
+            <h3 id="incoming-call-title">📞 Incoming Call...</h3>
             <div class="call-actions">
                 <button class="btn-accept" onclick="acceptCall()">Accept</button>
                 <button class="btn-decline" onclick="declineCall()">Decline</button>
@@ -533,6 +543,7 @@
         let localStream = null;
         let typingTimeout = null;
         let activeCall = null;
+        let isVideoCallActive = true;
 
         // Sound Engine (Web Audio API)
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -616,8 +627,6 @@
 
             hideTyping();
             renderMsg('Connection closed. User went offline.', 'system');
-            
-            // Automatically end call if friend goes offline
             endCall();
         }
 
@@ -695,29 +704,58 @@
             document.getElementById('image-modal').style.display = 'flex';
         }
 
-        // Call Logic (WhatsApp Style)
+        // Call Logic (Voice & Video)
+        async function startVoiceCall() {
+            if (!conn || !conn.open) {
+                renderMsg("Cannot call: User is offline.", "system");
+                return;
+            }
+            isVideoCallActive = false;
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
+                document.getElementById('video-section').style.display = 'block';
+                document.getElementById('local-video').style.display = 'none'; // Hide own video preview for voice calls
+                
+                activeCall = peer.call(conn.peer, localStream);
+                handleCall(activeCall);
+            } catch (err) {
+                alert("Microphone permission denied or unavailable.");
+            }
+        }
+
         async function startVideoCall() {
             if (!conn || !conn.open) {
                 renderMsg("Cannot call: User is offline.", "system");
                 return;
             }
-            localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
-            document.getElementById('local-video').srcObject = localStream;
-            document.getElementById('video-section').style.display = 'block'; // Show Fullscreen
-            
-            activeCall = peer.call(conn.peer, localStream);
-            handleCall(activeCall);
+            isVideoCallActive = true;
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                document.getElementById('local-video').srcObject = localStream;
+                document.getElementById('local-video').style.display = 'block';
+                document.getElementById('video-section').style.display = 'block';
+                
+                activeCall = peer.call(conn.peer, localStream);
+                handleCall(activeCall);
+            } catch (err) {
+                alert("Camera/Microphone permission denied or unavailable.");
+            }
         }
 
         async function acceptCall() {
             document.getElementById('call-modal').style.display = 'none';
-            localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
-            document.getElementById('local-video').srcObject = localStream;
-            document.getElementById('video-section').style.display = 'block'; // Show Fullscreen
-            
-            activeCall = incomingCallObj;
-            activeCall.answer(localStream);
-            handleCall(activeCall);
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                document.getElementById('local-video').srcObject = localStream;
+                document.getElementById('local-video').style.display = 'block';
+                document.getElementById('video-section').style.display = 'block';
+                
+                activeCall = incomingCallObj;
+                activeCall.answer(localStream);
+                handleCall(activeCall);
+            } catch (err) {
+                alert("Media permissions are required to answer calls.");
+            }
         }
 
         function declineCall() {
@@ -734,7 +772,6 @@
             });
         }
 
-        // Safely end the call and hide video UI
         function endCall() {
             if (activeCall) {
                 activeCall.close();
