@@ -73,6 +73,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 64, 129, 0.05);
             position: relative;
             z-index: 1;
+            margin-bottom: 50px; /* Space for the footer */
         }
 
         /* Headers & Inputs */
@@ -401,6 +402,42 @@
             transform: translateX(-50%) translateY(-2px);
         }
 
+        /* --- GLOBAL FOOTER --- */
+        footer {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        .footer-links a {
+            color: #94A3B8; /* Muted text color */
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent); /* Lights up blue on hover */
+        }
+        
+        .footer-links a:not(:last-child)::after {
+            content: "·";
+            position: absolute;
+            right: -10px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
     </style>
 </head>
 <body>
@@ -454,6 +491,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Universal Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://chatingfly.netlify.app/about.html" target="_blank" rel="noopener noreferrer">About</a>
+            <a href="https://drive.google.com/file/d/1XY389gHH1_DwgHUIw3Smh8Ssvy51WBlf/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: bold;">📱 Download APK</a>
+            <a href="https://chatingfly.netlify.app/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            <a href="https://chatingfly.netlify.app/safety.html" target="_blank" rel="noopener noreferrer">Safety & Community Guidelines</a>
+        </div>
+    </footer>
 
     <!-- Fullscreen Video Section (WhatsApp Style) -->
     <div id="video-section">
