@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b19">
+
+<title>ChatingFly — Connect Beyond Limits</title>
+
+<meta name="description" content="Discover ChatingFly, a username-based chat app with messaging, image sharing and video calling. Download the Android app.">
+
+<style>
+:root {
+  --bg: #080b19;
+  --card: rgba(255,255,255,0.055);
+  --border: rgba(255,255,255,0.11);
+  --pink: #ff399b;
+  --purple: #8b42ff;
+  --blue: #29c8ff;
+  --text: #f8f8ff;
+  --muted: #a4a9c1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 15% 10%, #25133d 0%, transparent 35%),
+    radial-gradient(ellipse at 90% 45%, #101e43 0%, transparent 40%),
+    var(--bg);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1120px, 90%);
+  margin: auto;
+}
+
+/* NAVIGATION */
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.brand img {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  object-fit: cover;
+}
+
+.brand-name {
+  background: linear-gradient(90deg, #ff5ca8, #b38aff, #48d8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-link {
+  color: var(--muted);
+  font-size: 14px;
+  transition: .25s;
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 690px;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 60px;
+  padding: 65px 0 95px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  background: rgba(255,255,255,.045);
+  color: #d7c9ff;
+  font-size: 12px;
+  letter-spacing: .6px;
+  margin-bottom: 28px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffb84d;
+  box-shadow: 0 0 12px #ffb84d;
+}
+
+h1 {
+  font-size: clamp(43px, 6vw, 76px);
+  line-height: 1.06;
+  letter-spacing: -3.5px;
+  font-weight: 850;
+}
+
+.gradient-text {
+  background: linear-gradient(100deg, #ff4da6, #a46bff 55%, #39d7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-description {
+  margin-top: 25px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+  max-width: 500px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 23px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 750;
+  border: 1px solid var(--border);
+  transition: transform .25s, box-shadow .25s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-primary {
+  color: white;
+  background: linear-gradient(110deg, var(--pink), var(--purple));
+  border: none;
+  box-shadow: 0 8px 35px rgba(186, 54, 255, .25);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 12px 40px rgba(186, 54, 255, .4);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,.045);
+  color: white;
+}
+
+.small-note {
+  color: #747b98;
+  font-size: 12px;
+  margin-top: 18px;
+}
+
+/* PHONE PREVIEW */
+
+.preview-area {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.glow {
+  position: absolute;
+  width: 290px;
+  height: 400px;
+  background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+  filter: blur(110px);
+  opacity: .23;
+  z-index: 0;
+}
+
+.phone {
+  width: min(100%, 330px);
+  padding: 10px;
+  border-radius: 35px;
+  background: linear-gradient(145deg, #38334e, #111322 45%, #272139);
+  border: 1px solid rgba(255,255,255,.2);
+  box-shadow: 0 35px 100px rgba(0,0,0,.5);
+  position: relative;
+  z-index: 1;
+  transform: rotate(2deg);
+}
+
+.phone-screen {
+  background: #0c1020;
+  border-radius: 27px;
+  overflow: hidden;
+  min-height: 520px;
+  position: relative;
+}
+
+.phone-top {
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone-camera {
+  width: 75px;
+  height: 17px;
+  border-radius: 20px;
+  background: #03040a;
+}
+
+.app-preview {
+  width: 100%;
+  display: block;
+  height: 475px;
+  object-fit: cover;
+  object-position: top;
+  background:
+    radial-gradient(circle at 50% 30%, #28203c, transparent 50%),
+    #0c1020;
+}
+
+.preview-fallback {
+  padding: 55px 20px;
+  text-align: center;
+}
+
+.preview-icon {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 25px;
+  margin-bottom: 20px;
+}
+
+.preview-fallback h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.preview-fallback p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* SECTION */
+
+section {
+  padding: 85px 0;
+}
+
+.section-heading {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 48px;
+}
+
+.section-heading h2 {
+  font-size: clamp(30px, 4vw, 46px);
+  letter-spacing: -1.5px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-top: 15px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  padding: 30px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  backdrop-filter: blur(20px);
+  transition: .3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(171,110,255,.5);
+  background: rgba(255,255,255,.075);
+}
+
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  font-size: 25px;
+  background: linear-gradient(135deg, rgba(255,57,155,.18), rgba(139,66,255,.2));
+  margin-bottom: 23px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* STATUS */
+
+.status-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: linear-gradient(120deg, rgba(255,57,155,.08), rgba(139,66,255,.09));
+}
+
+.status-box h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.status-box p {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.building-label {
+  flex-shrink: 0;
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,184,77,.3);
+  background: rgba(255,184,77,.08);
+  color: #ffcf84;
+  font-size: 12px;
+}
+
+/* DOWNLOAD */
+
+.download-card {
+  text-align: center;
+  padding: 60px 25px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background:
+    radial-gradient(ellipse at top, rgba(139,66,255,.18), transparent 65%),
+    rgba(255,255,255,.035);
+}
+
+.download-card h2 {
+  font-size: clamp(32px, 5vw, 48px);
+  letter-spacing: -1.5px;
+}
+
+.download-card p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin: 18px auto 27px;
+  max-width: 520px;
+}
+
+.download-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.meta-item {
+  padding: 9px 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: #c3c8dc;
+  font-size: 12px;
+}
+
+/* FOOTER */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  color: #777f9d;
+  font-size: 12px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  color: #d4b9ff;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    padding: 55px 0 70px;
+    text-align: center;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .preview-area {
+    margin-top: 5px;
+  }
+
+  .phone {
+    width: min(86%, 330px);
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    padding: 25px;
+  }
+
+  .status-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  h1 {
+    letter-spacing: -2px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    width: 91%;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .brand {
+    font-size: 19px;
+  }
+
+  .brand img {
+    width: 39px;
+    height: 39px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .phone-screen {
+    min-height: 460px;
+  }
+
+  .app-preview {
+    height: 420px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="container">
+  <nav>
+    <a href="#" class="brand">
+      <img src="assets/app-icon.png" alt="ChatingFly app icon"
+           onerror="this.style.display='none'">
+      <span class="brand-name">ChatingFly</span>
+    </a>
+
+    <a href="#download" class="nav-link">Download App ↗</a>
+  </nav>
+</header>
+
+<main>
+
+  <div class="container">
+    <section class="hero">
+
+      <div class="hero-content">
+        <div class="badge">
+          <span class="status-dot"></span>
+          NOT FINISHED · STILL BUILDING
+        </div>
+
+        <h1>
+          Your world.<br>
+          Your people.<br>
+          <span class="gradient-text">Your ChatingFly.</span>
+        </h1>
+
+        <p class="hero-description">
+          Connect through usernames, share moments and discover a
+          different way to chat. Welcome to ChatingFly — built for
+          simple, direct connections.
+        </p>
+
+        <div class="buttons">
+          <a class="btn btn-primary" href="ChatingFly-1.apk"
+             download="ChatingFly-1.apk">
+            ⬇ Download APK
+          </a>
+
+          <a class="btn btn-secondary" href="#features">
+            Explore Features ↗
+          </a>
+        </div>
+
+        <p class="small-note">
+          Android app · Independent project by y@$h
+        </p>
+      </div>
+
+      <div class="preview-area">
+        <div class="glow"></div>
+
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-top">
+              <div class="phone-camera"></div>
+            </div>
+
+            <img
+              class="app-preview"
+              src="assets/app-preview.jpg"
+              alt="ChatingFly app screenshot"
+              onerror="
+                this.style.display='none';
+                document.getElementById('previewFallback').style.display='block';
+              "
+            >
+
+            <div class="preview-fallback" id="previewFallback"
+                 style="display:none">
+              <img class="preview-icon"
+                   src="assets/app-icon.png"
+                   alt="ChatingFly icon">
+              <h3>ChatingFly ✨</h3>
+              <p>
+                Connect with a username.<br>
+                Chat, share and stay connected.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <section id="features">
+    <div class="container">
+
+      <div class="section-heading">
+        <h2>Made for <span class="gradient-text">connections.</span></h2>
+        <p>
+          Explore the features designed for a simple, modern
+          messaging experience.
+        </p>
+      </div>
+
+      <div class="features">
+
+        <article class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>Username-Based Chat</h3>
+          <p>
+            Create your own user ID and connect with people
+            without needing a traditional email-based account.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">🖼️</div>
+          <h3>Image & File Sharing</h3>
+          <p>
+            Share supported media and files through the
+            messaging experience.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">📹</div>
+          <h3>Video Calling</h3>
+          <p>
+            Explore real-time video calling capabilities,
+            depending on device permissions and connectivity.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">🌌</div>
+          <h3>Modern Interface</h3>
+          <p>
+            A dark visual experience with gradients,
+            glass-inspired surfaces and a distinctive identity.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Simple Access</h3>
+          <p>
+            Open the app, choose your ID and get started.
+            Availability depends on the app's current build.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>Growing Project</h3>
+          <p>
+            ChatingFly is an evolving independent project.
+            New improvements may arrive as development continues.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="status-box">
+        <div>
+          <h3>We're building something different.</h3>
+          <p>
+            ChatingFly is still under development. Features,
+            compatibility and availability may change as the
+            project evolves.
+          </p>
+        </div>
+
+        <div class="building-label">
+          ● Still Building
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="container">
+
+      <div class="download-card">
+        <h2>Ready to <span class="gradient-text">take flight?</span></h2>
+
+        <p>
+          Get the ChatingFly Android app and explore the current build.
+          Install only if you trust the source of the APK.
+        </p>
+
+        <a class="btn btn-primary"
+           href="ChatingFly-1.apk"
+           download="ChatingFly-1.apk">
+          ⬇ Download ChatingFly APK
+        </a>
+
+        <div class="download-meta">
+          <span class="meta-item">📱 Android APK</span>
+          <span class="meta-item">🏷️ Version: Not verified</span>
+          <span class="meta-item" id="fileSize">📦 Size: Checking…</span>
+        </div>
+
+        <p class="small-note">
+          by y@$h · ChatingFly
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <span class="footer-brand">y@$h</span>
+      <span> · ChatingFly</span>
+    </div>
+
+    <div>Not finished. Still building. © <span id="year"></span></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+async function checkAPKSize() {
+  const label = document.getElementById("fileSize");
+
+  try {
+    const response = await fetch("ChatingFly-1.apk", {
+      method: "HEAD",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      label.textContent = "📦 Size: Check APK file";
+      return;
+    }
+
+    const bytes = Number(response.headers.get("content-length"));
+
+    if (!bytes) {
+      label.textContent = "📦 Size: Available on download";
+      return;
+    }
+
+    const sizeMB = (bytes / (1024 * 1024)).toFixed(2);
+    label.textContent = "📦 Size: " + sizeMB + " MB";
+
+  } catch (error) {
+    label.textContent = "📦 Size: See APK file";
+  }
+}
+
+checkAPKSize();
+</script>
+
+</body>
+</html>
