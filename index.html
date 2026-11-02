@@ -34,7 +34,7 @@
             background-image: radial-gradient(circle at 15% 50%, rgba(124, 58, 237, 0.15), transparent 25%),
                               radial-gradient(circle at 85% 30%, rgba(255, 64, 129, 0.15), transparent 25%);
             color: var(--text-light); 
-            padding: 20px; 
+            padding: 15px; 
             margin: 0;
             min-height: 100vh;
             display: flex;
@@ -62,7 +62,7 @@
         .wm-bl { bottom: 15px; left: 15px; }
         .wm-br { bottom: 15px; right: 15px; }
 
-        /* Glassmorphism Container */
+        /* Glassmorphism Container - Mobile First / Fluid */
         .glass-container {
             width: 100%;
             max-width: 450px;
@@ -71,17 +71,18 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 64, 129, 0.05);
             position: relative;
             z-index: 1;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            transition: all 0.4s ease;
         }
 
         /* Headers & Inputs */
         h2 {
             text-align: center;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             background: linear-gradient(to right, var(--primary), var(--accent));
             -webkit-background-clip: text;
@@ -135,7 +136,7 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .header-actions {
@@ -144,8 +145,8 @@
         }
 
         .avatar {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--secondary), var(--accent));
             display: flex;
@@ -190,7 +191,7 @@
 
         /* Chat Box & Messages */
         #chat-box { 
-            height: 350px; 
+            height: 330px; 
             overflow-y: auto; 
             display: flex;
             flex-direction: column;
@@ -199,7 +200,7 @@
             margin-bottom: 15px;
             scroll-behavior: smooth;
         }
-        #chat-box::-webkit-scrollbar { width: 4px; }
+        #chat-box::-webkit-scrollbar { width: 5px; }
         #chat-box::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 10px; }
 
         .msg { 
@@ -412,7 +413,7 @@
         /* --- GLOBAL FOOTER --- */
         footer {
             position: absolute;
-            bottom: 15px;
+            bottom: 12px;
             width: 100%;
             text-align: center;
             z-index: 10;
@@ -445,6 +446,56 @@
             color: rgba(255, 255, 255, 0.2);
         }
 
+        /* --- DESKTOP VIEWPORT OPTIMIZATIONS (Screen UI Adjustments) --- */
+        @media (min-width: 768px) {
+            .glass-container {
+                max-width: 600px;
+                padding: 35px;
+                border-radius: 28px;
+            }
+            
+            h2 {
+                font-size: 30px;
+                margin-bottom: 25px;
+            }
+
+            #chat-box {
+                height: 440px;
+            }
+
+            input[type="text"] {
+                padding: 16px;
+                font-size: 16px;
+            }
+
+            .primary-btn {
+                padding: 16px;
+                font-size: 16px;
+            }
+
+            .avatar {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+
+            .icon-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .glass-container {
+                max-width: 680px;
+                padding: 40px;
+            }
+
+            #chat-box {
+                height: 480px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -474,7 +525,7 @@
                 <div class="user-info">
                     <div class="avatar" id="friend-avatar">? <div class="status-dot" id="status-indicator"></div></div>
                     <div>
-                        <div style="font-weight: 600; font-size: 14px;" id="friend-name-display">Connected</div>
+                        <div style="font-weight: 600; font-size: 15px;" id="friend-name-display">Connected</div>
                         <div class="conn-quality" id="signal-quality">📊 Signal: Good</div>
                     </div>
                 </div>
@@ -491,13 +542,13 @@
             </div>
 
             <div class="chat-controls">
-                <button class="icon-btn" onclick="document.getElementById('file-input').click()">🖼️</button>
+                <button class="icon-btn" onclick="document.getElementById('file-input').click()" title="Send Image">🖼️</button>
                 <input type="file" id="file-input" style="display:none" onchange="sendFile(this)" accept="image/*">
                 
                 <input type="text" id="msg-input" placeholder="Type a message..." style="margin:0;" 
                        oninput="sendTyping()" onkeypress="if(event.key === 'Enter') sendMessage()">
                 
-                <button class="icon-btn send" onclick="sendMessage()">➤</button>
+                <button class="icon-btn send" onclick="sendMessage()" title="Send">➤</button>
             </div>
         </div>
     </div>
