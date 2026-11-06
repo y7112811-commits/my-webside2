@@ -5,16 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatingFly | Premium Secure Chat</title>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S9PG9LNNWR"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-S9PG9LNNWR');
-    </script>
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-S9PG9LNNWR"></script>
     <script>
@@ -29,7 +19,7 @@
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1mtjKVvd3VSee9FbZF5llL53azLBa4oh3">
 
     <!-- SEO & Verification Tags -->
-    <meta name="description" content="y@$h is a modern secure private chat platform Discover ChatingFly, a free online chatting platform. Connect with friends using usernames, send friend requests, and enjoy simple online conversations. Try temporary username access  .">
+    <meta name="description" content="y@$h is a modern secure private chat platform Discover ChatingFly, a free online chatting platform. Connect with friends using usernames, send friend requests, and enjoy simple online conversations. Try temporary username access.">
     <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="mV_h-5qmy0iRmEXqIIbiWXjZdqP9OBab4vvnjRcYXCM" />
 
@@ -608,6 +598,20 @@
     </div>
 
     <script>
+        // Safe Analytics Helper (Prevents breaking if GA blocks/fails and prevents duplicate firing)
+        let trackedEvents = {};
+        function safeTrackEvent(eventName, params = {}) {
+            try {
+                if (typeof gtag === 'function') {
+                    // Prevent duplicate event firing for one-time milestone triggers if desired, 
+                    // or let standard GA4 handle it. Here we use standard safe execution.
+                    gtag('event', eventName, params);
+                }
+            } catch (err) {
+                console.warn('Analytics unavailable:', err);
+            }
+        }
+
         let peer = null;
         let conn = null;
         let incomingCallObj = null;
@@ -640,6 +644,12 @@
             peer.on('open', () => {
                 document.getElementById('setup').style.display = 'none';
                 document.getElementById('connect-section').style.display = 'block';
+
+                // 1. Track User Registration ("Go online")
+                if (!trackedEvents['Go online']) {
+                    safeTrackEvent('Go online');
+                    trackedEvents['Go online'] = true;
+                }
             });
             peer.on('connection', c => setupConnection(c));
             peer.on('call', call => {
@@ -651,6 +661,10 @@
         function connectToFriend() {
             const fid = document.getElementById('friend-id').value.trim();
             if (!fid) return;
+
+            // 2. Track User Search ("conect_frind")
+            safeTrackEvent('conect_frind');
+
             setupConnection(peer.connect(fid, { reliable: true }));
         }
 
@@ -667,6 +681,9 @@
                 document.getElementById('friend-avatar').innerHTML = conn.peer.charAt(0).toUpperCase() + '<div class="status-dot" id="status-indicator"></div>';
                 
                 confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#FF4081', '#7C3AED', '#06B6D4'] });
+
+                // 3. Track Chat Connection ("chat_started")
+                safeTrackEvent('chat_started');
             });
 
             conn.on('data', data => {
@@ -711,6 +728,9 @@
                 conn.send({ type: 'text', text: text });
                 renderMsg(text, 'you');
                 input.value = '';
+
+                // 4. Track Messages ("message_sent")
+                safeTrackEvent('message_sent');
             } else {
                 renderMsg("Message failed: User is offline.", "system");
             }
@@ -725,6 +745,9 @@
                 reader.onload = e => {
                     conn.send({ type: 'image', img: e.target.result });
                     renderImgMsg(e.target.result, 'you');
+
+                    // 5. Track Photo Sharing ("photo_shared")
+                    safeTrackEvent('photo_shared');
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -788,7 +811,7 @@
                 document.getElementById('local-video').style.display = 'none'; // Hide own video preview for voice calls
                 
                 activeCall = peer.call(conn.peer, localStream);
-                handleCall(activeCall);
+                handleCall(activeCall, false);
             } catch (err) {
                 alert("Microphone permission denied or unavailable.");
             }
@@ -807,7 +830,7 @@
                 document.getElementById('video-section').style.display = 'block';
                 
                 activeCall = peer.call(conn.peer, localStream);
-                handleCall(activeCall);
+                handleCall(activeCall, true);
             } catch (err) {
                 alert("Camera/Microphone permission denied or unavailable.");
             }
@@ -823,7 +846,7 @@
                 
                 activeCall = incomingCallObj;
                 activeCall.answer(localStream);
-                handleCall(activeCall);
+                handleCall(activeCall, true);
             } catch (err) {
                 alert("Media permissions are required to answer calls.");
             }
@@ -834,9 +857,14 @@
             if (incomingCallObj) incomingCallObj.close();
         }
 
-        function handleCall(call) {
+        function handleCall(call, isVideo) {
             call.on('stream', stream => {
                 document.getElementById('remote-video').srcObject = stream;
+                
+                // 6. Track Video Calls ("video_call_started") - Triggered upon successful stream connection if video is active
+                if (isVideo) {
+                    safeTrackEvent('video_call_started');
+                }
             });
             call.on('close', () => {
                 endCall();
